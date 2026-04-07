@@ -28,7 +28,7 @@
 | URL | 大陆访问 | HTTPS | 点击访问 |
 | -------------------- | :--------: | :-----: | :-----: |
 | yuyudifiesh.github.io/dailynews-school-view | ⚠ | ✅ | [v1](https://yuyudifiesh.github.io/dailynews-school-view/v1/) |
-| yuuuyu-service.rth1.xyz/dnsv | ✅ | ✅ | [v1](https://yuuuyu-service.rth1.xyz/dnsv/app/v1) |
+| yuuuyu-service.rth1.xyz/dnsv | ✅ | ✅ | [下载](https://github.com/yuyudifiesh/dailynews-school-view/releases/tag/v1.0.0) |
 
 <br>
 
