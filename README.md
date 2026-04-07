@@ -1,4 +1,4 @@
-# DailyNews SchoolView
+# 简讯
 
 <br>
 
