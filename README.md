@@ -24,9 +24,20 @@
 - 第三方项目使用
   - [vikiboss/60s](https://github.com/vikiboss/60s)
   - [ourongxing/newsnow](https://github.com/ourongxing/newsnow)
+  - [RSS 2 HTML](https://rss2html.net)
+  - [tw93/Pake](https://github.com/tw93/Pake)
+  - [mumuy/browser](https://github.com/mumuy/browser)
 
 - 网页托管
   - [热铁盒网页托管](https://host.retiehe.com)
+
+- 信息来源
+  - [中国新闻网](https://www.chinanews.com.cn)
+  - [人民日报](https://www.people.com.cn)
+  - [Olympics](https://www.olympics.com/zh)
+  - [百度百科](https://baike.baidu.com)
+  - [维基百科](https://www.olympics.com/zh)
+  - [ai-bot.cn](https://ai-bot.cn/daily-ai-news)
 
 <br>
 
