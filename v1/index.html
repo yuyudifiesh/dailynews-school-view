@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>简讯 · 简单的信息</title>
-    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -149,7 +149,6 @@
             line-height: 2;
         }
 
-        /* 古诗词正文加大加粗 */
         #page0 #poemContent {
             font-size: 20px;
             font-weight: bold;
@@ -165,7 +164,7 @@
             margin: 30px 0;
         }
 
-        /* 微博热搜滚动容器 */
+        /* 首页容器 */
         #weiboContainer {
             height: 320px;
             overflow-y: auto;
@@ -188,7 +187,6 @@
             word-break: break-all;
         }
 
-        /* 奥运金牌榜样式 */
         #olympicsContainer {
             line-height: 1.8;
             font-size: 15px;
@@ -280,7 +278,7 @@
             <h2>简讯</h2>
             <div class="datetime" id="realTime"></div>
             <div class="poem">
-                <p id="poemContent">Wait……</p>
+                <p id="poemContent">古诗词加载中...</p>
                 <p id="poemAuthor" class="poem-author"></p>
             </div>
             <div class="weibo">
@@ -295,7 +293,7 @@
 
         <div id="page1" class="content-item">
             <h2>每日 AI 资讯快报</h2>
-            <p>功能开发中</p>
+            <p>本页功能开发中</p>
         </div>
 
         <div id="page2" class="content-item">
@@ -324,24 +322,24 @@
 
         <div id="page6" class="content-item">
             <h2>今天发生了什么？</h2>
-            <p>功能开发中</p>
+            <p>本页功能开发中</p>
         </div>
 
         <div id="page7" class="content-item">
             <h2>关于</h2>
             <p>项目仓库：https://github.com/yuyudifiesh/dailynews-school-view</p>
-            <p>应用版本：Developer</p>
-            <p>构建版本：test</p>
-            <p>服务实例：local</p>
-            <p>前置链接：60s.viki.moe；embeds.rss2html.net；cdn.bootcdn.net；v1.jinrishici.com</p>
+            <p>应用版本：1.0.0</p>
+            <p>服务实例：1</p>
+            <p>前置链接：60s.viki.moe；embeds.rss2html.net；v1.jinrishici.com</p>
             <p>参与开发：yuyudifiesh</p>
+            <p>构建版本：1</p>
             <p>更多功能持续开发中，感谢您的喜欢 ~</p>
         </div>
     </div>
 
-    <script src="https://cdn.bootcdn.net/ajax/libs/marked/9.1.2/marked.min.js"></script>
+    <script src="marked.min.js"></script>
     <script>
-        // 实时时间
+        // 首页时间
         function updateDateTime() {
             const now = new Date();
             const year = now.getFullYear();
@@ -430,7 +428,7 @@
                 const html = marked.parse(markdown);
                 container.innerHTML = html;
 
-                // 写入缓存
+                // 写入
                 localStorage.setItem('todayHistoryCache', html);
                 localStorage.setItem('todayHistoryDate', today);
             } catch (err) {
