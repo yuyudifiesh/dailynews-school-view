@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>简讯 · 简单的信息</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+            user-select: none !important;
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 280px;
+            height: 100vh;
+            background-color: #2c3e50;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            padding: 15px 25px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-menu li i {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-menu li:hover,
+        .sidebar-menu li.active {
+            background-color: #3498db;
+        }
+
+        .content {
+            margin-left: 280px;
+            width: calc(100% - 280px);
+            height: 100vh;
+            overflow-y: auto;
+            padding: 30px;
+            background-color: #f5f7fa;
+        }
+
+        .content-item {
+            display: none;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            min-height: 90%;
+        }
+
+        .content-item.active {
+            display: block;
+        }
+
+        .content-item h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .content-item p {
+            line-height: 1.8;
+            color: #555;
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+
+        .rss-news-list {
+            line-height: 2;
+            font-size: 15px;
+        }
+
+        .rss-news-list div {
+            padding: 8px 0;
+            border-bottom: 1px dashed #eee;
+        }
+
+        .rss-news-list a {
+            color: #2c3e50;
+            text-decoration: none;
+        }
+
+        .rss-news-list a:hover {
+            color: #3498db;
+        }
+
+        #page4 hr,
+        #page5 hr {
+            display: none !important;
+        }
+
+        #page4 .rss2html-footer,
+        #page4 .rss2html-copy-button,
+        #page4 [class*="feed-footer"],
+        #page4 [class*="powered-by"],
+        #page4 [onclick*="copy"],
+        #page4 a[href*="rss2html"],
+        #page5 .rss2html-footer,
+        #page5 .rss2html-copy-button,
+        #page5 [class*="feed-footer"],
+        #page5 [class*="powered-by"],
+        #page5 [onclick*="copy"],
+        #page5 a[href*="rss2html"] {
+            display: none !important;
+        }
+
+        #page0 .datetime {
+            font-size: 18px;
+            color: #2c3e50;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        #page0 .poem {
+            font-size: 16px;
+            color: #34495e;
+            margin: 30px 0;
+            line-height: 2;
+        }
+
+        /* 古诗词正文加大加粗 */
+        #page0 #poemContent {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #page0 .poem-author {
+            text-align: right;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        #page0 .weibo {
+            margin: 30px 0;
+        }
+
+        /* 微博热搜滚动容器 */
+        #weiboContainer {
+            height: 320px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            padding: 15px 20px;
+            margin-top: 10px;
+            background: #fdfdfd;
+        }
+
+        #weiboList {
+            line-height: 1.8;
+            font-size: 15px;
+            color: #2c3e50;
+            padding-left: 20px;
+        }
+
+        #weiboList li {
+            margin-bottom: 8px;
+            word-break: break-all;
+        }
+
+        /* 奥运金牌榜样式 */
+        #olympicsContainer {
+            line-height: 1.8;
+            font-size: 15px;
+            color: #2c3e50;
+        }
+
+        #olympicsContainer h3 {
+            margin: 10px 0;
+            color: #2c3e50;
+        }
+
+        #olympicsContainer table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+
+        #olympicsContainer th,
+        #olympicsContainer td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #olympicsContainer th {
+            background-color: #f5f7fa;
+            font-weight: bold;
+        }
+
+        #todayHistoryContainer a,
+        #olympicsContainer a {
+            color: #3498db !important;
+            text-decoration: none !important;
+        }
+
+        #todayHistoryContainer a:visited,
+        #olympicsContainer a:visited {
+            color: #3498db !important;
+        }
+
+        #todayHistoryContainer a:hover,
+        #olympicsContainer a:hover {
+            color: #3498db !important;
+        }
+
+        .sidebar-menu li[butt="false"] {
+            cursor: not-allowed !important;
+        }
+
+        .sidebar-menu li[butt="false"]:hover {
+            background-color: #95a5a6 !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <ul class="sidebar-menu">
+            <li data-target="page0" class="active" butt="true">
+                <i class="fa-solid fa-house"></i>主页
+            </li>
+            <li data-target="page1" butt="false">
+                <i class="fa-solid fa-robot"></i>每日 AI 资讯快报
+            </li>
+            <li data-target="page2" butt="true">
+                <i class="fa-solid fa-calendar-days"></i>历史上的今天
+            </li>
+            <li data-target="page3" butt="true">
+                <i class="fa-solid fa-medal"></i>奥运金牌榜
+            </li>
+            <li data-target="page4" butt="true">
+                <i class="fa-solid fa-newspaper"></i>时政新闻 - 中新社
+            </li>
+            <li data-target="page5" butt="true">
+                <i class="fa-solid fa-users"></i>社会新闻 - 中新社
+            </li>
+            <li data-target="page6" butt="false">
+                <i class="fa-solid fa-calendar-day"></i>今天发生了什么？
+            </li>
+            <li data-target="page7" butt="true">
+                <i class="fa-solid fa-user"></i>关于
+            </li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <div id="page0" class="content-item active">
+            <h2>简讯</h2>
+            <div class="datetime" id="realTime"></div>
+            <div class="poem">
+                <p id="poemContent">Wait……</p>
+                <p id="poemAuthor" class="poem-author"></p>
+            </div>
+            <div class="weibo">
+                <h3>微博热搜</h3>
+                <div id="weiboContainer">
+                    <ol id="weiboList">
+                        <li>加载中...</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div id="page1" class="content-item">
+            <h2>每日 AI 资讯快报</h2>
+            <p>功能开发中</p>
+        </div>
+
+        <div id="page2" class="content-item">
+            <div id="todayHistoryContainer">加载中...</div>
+        </div>
+
+        <div id="page3" class="content-item">
+            <div id="olympicsContainer">加载中...</div>
+        </div>
+
+        <div id="page4" class="content-item">
+            <h2>时政新闻 - 中新社</h2>
+            <div class="rss-news-list">
+                <script
+                    src="https://embeds.rss2html.net/embed.js?url=https%3A%2F%2Fwww.chinanews.com.cn%2Frss%2Fchina.xml&amp;ignore_errors=1&amp;embed_title_replacement=%F0%9F%93%B0&amp;feed_title_fallback=&amp;feed_render_image=0&amp;feed_render_link=0&amp;item_count=20&amp;item_title_link_open_new_tab=0&amp;item_strip_html=1&amp;item_render_published=0&amp;item_filter_content_exclude=img%2Cfooter"></script>
+            </div>
+        </div>
+
+        <div id="page5" class="content-item">
+            <h2>社会新闻 - 中新社</h2>
+            <div class="rss-news-list">
+                <script
+                    src="https://embeds.rss2html.net/embed.js?url=https%3A%2F%2Fwww.chinanews.com.cn%2Frss%2Fsociety.xml&amp;ignore_errors=1&amp;embed_title_replacement=%F0%9F%93%B0&amp;feed_title_fallback=&amp;feed_render_image=0&amp;feed_render_link=0&amp;item_count=20&amp;item_title_link_open_new_tab=0&amp;item_strip_html=1&amp;item_render_published=0&amp;item_filter_content_exclude=img%2Cfooter"></script>
+            </div>
+        </div>
+
+        <div id="page6" class="content-item">
+            <h2>今天发生了什么？</h2>
+            <p>功能开发中</p>
+        </div>
+
+        <div id="page7" class="content-item">
+            <h2>关于</h2>
+            <p>项目仓库：https://github.com/yuyudifiesh/dailynews-school-view</p>
+            <p>应用版本：Developer</p>
+            <p>构建版本：test</p>
+            <p>服务实例：local</p>
+            <p>前置链接：60s.viki.moe；embeds.rss2html.net；cdn.bootcdn.net；v1.jinrishici.com</p>
+            <p>参与开发：yuyudifiesh</p>
+            <p>更多功能持续开发中，感谢您的喜欢 ~</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/marked/9.1.2/marked.min.js"></script>
+    <script>
+        // 实时时间
+        function updateDateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.getMonth() + 1;
+            const day = now.getDate();
+            const hour = String(now.getHours()).padStart(2, '0');
+            const minute = String(now.getMinutes()).padStart(2, '0');
+            const second = String(now.getSeconds()).padStart(2, '0');
+
+            document.getElementById('realTime').innerText =
+                `${year}年${month}月${day}日 ${hour}:${minute}:${second}`;
+        }
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+
+        // 古诗词
+        async function loadPoem() {
+            try {
+                const res = await fetch('https://v1.jinrishici.com/all.json');
+                const data = await res.json();
+                document.getElementById('poemContent').innerText = data.content;
+                document.getElementById('poemAuthor').innerText = `—— ${data.origin} · ${data.author}`;
+            } catch (err) {
+                document.getElementById('poemContent').innerText = '诗词加载失败';
+            }
+        }
+        loadPoem();
+
+        // 微博热搜
+        async function loadWeibo() {
+            const listEl = document.getElementById('weiboList');
+            try {
+                const res = await fetch('https://60s.viki.moe/v2/weibo');
+                const result = await res.json();
+                if (result.code !== 200 || !result.data) throw new Error('数据异常');
+
+                const list = result.data.slice(0, 20);
+                listEl.innerHTML = '';
+                list.forEach(item => {
+                    const li = document.createElement('li');
+                    li.innerText = item.title;
+                    listEl.appendChild(li);
+                });
+            } catch (err) {
+                listEl.innerHTML = '<li>热搜加载失败</li>';
+            }
+        }
+        loadWeibo();
+
+        // 奥运金牌榜
+        async function loadOlympics() {
+            const container = document.getElementById('olympicsContainer');
+            try {
+                const res = await fetch('https://60s.viki.moe/v2/olympics?id=paris-2024&encoding=markdown');
+                const markdown = await res.text();
+                container.innerHTML = marked.parse(markdown);
+            } catch (err) {
+                container.innerText = '请求失败，请检查网络或重新启动';
+            }
+        }
+        loadOlympics();
+
+        // 历史上的今天
+        async function loadTodayHistory() {
+            const container = document.getElementById('todayHistoryContainer');
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const today = `${year}-${month}-${day}`;
+
+            // 读取缓存
+            const cacheData = localStorage.getItem('todayHistoryCache');
+            const cacheDate = localStorage.getItem('todayHistoryDate');
+
+            // 如果今天已缓存，直接使用
+            if (cacheData && cacheDate === today) {
+                container.innerHTML = cacheData;
+                return;
+            }
+
+            // 否则重新请求
+            try {
+                const res = await fetch(`https://60s.viki.moe/v2/today-in-history?encoding=markdown&date=${today}`);
+                const markdown = await res.text();
+                const html = marked.parse(markdown);
+                container.innerHTML = html;
+
+                // 写入缓存
+                localStorage.setItem('todayHistoryCache', html);
+                localStorage.setItem('todayHistoryDate', today);
+            } catch (err) {
+                container.innerText = '历史上的今天加载失败';
+            }
+        }
+        loadTodayHistory();
+
+        // 菜单切换
+        const menuItems = document.querySelectorAll('.sidebar-menu li');
+        const contentItems = document.querySelectorAll('.content-item');
+        menuItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const isAllow = item.getAttribute('butt') !== 'false';
+                if (!isAllow) return;
+
+                menuItems.forEach(li => li.classList.remove('active'));
+                item.classList.add('active');
+                const targetId = item.getAttribute('data-target');
+                contentItems.forEach(content => content.classList.remove('active'));
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+
+        // 禁止复制
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('copy', e => e.preventDefault());
+        document.addEventListener('cut', e => e.preventDefault());
+        document.addEventListener('selectstart', e => e.preventDefault());
+    </script>
+</body>
+
+</html>
