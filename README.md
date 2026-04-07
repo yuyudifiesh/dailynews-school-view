@@ -17,6 +17,21 @@
 
 <br>
 
+## 服务 URL 列表
+
+> ✅：完全可用
+>
+> ⚠：部分可用
+>
+> ❌：不可用
+
+| URL | 大陆访问 | HTTPS | 点击访问 |
+| -------------------- | :--------: | :-----: | :-----: |
+| yuyudifiesh.github.io/dailynews-school-view | ⚠ | ✅ | -- |
+| yuuuyu-service.rth1.xyz/dnsv | ✅ | ✅ | -- |
+
+<br>
+
 ## 致谢
 
 实在是太感谢了！！！
@@ -38,18 +53,3 @@
   - [百度百科](https://baike.baidu.com)
   - [维基百科](https://www.olympics.com/zh)
   - [ai-bot.cn](https://ai-bot.cn/daily-ai-news)
-
-<br>
-
-## 服务 URL 列表
-
-> ✅：完全可用
->
-> ⚠：部分可用
->
-> ❌：不可用
-
-| URL | 大陆访问 | HTTPS | 点击访问 |
-| -------------------- | :--------: | :-----: | :-----: |
-| yuyudifiesh.github.io/dailynews-school-view | ⚠ | ✅ | -- |
-| yuuuyu-service.rth1.xyz/dnsv | ✅ | ✅ | -- |
